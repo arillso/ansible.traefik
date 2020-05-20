@@ -35,19 +35,20 @@
 
 - name: config | generate static config
   set_fact:
-      traefik_static_config: {}
-      traefik_static_config.global: "{{ traefik_conf_global }}"
-      traefik_static_config.serversTransport: "{{ traefik_conf_serversTransport }}"
-      traefik_static_config.entryPoints: "{{ traefik_conf_entryPoints }}"
-      traefik_static_config.providers: "{{ traefik_conf_providers }}"
-      traefik_static_config.api: "{{ traefik_conf_api }}"
-      traefik_static_config.metrics: "{{ traefik_conf_metrics }}"
-      traefik_static_config.ping: "{{ traefik_conf_ping }}"
-      traefik_static_config.log: "{{ traefik_conf_log }}"
-      traefik_static_config.accessLog: "{{ traefik_conf_accessLog }}"
-      traefik_static_config.tracing: "{{ traefik_conf_tracing }}"
-      traefik_static_config.hostResolver: "{{ traefik_conf_hostResolver }}"
-      traefik_static_config.certificatesResolvers: "{{ traefik_conf_certificatesResolvers }}"
+      traefik_static_config: {
+          global: "{{ traefik_conf_global }}"
+          serversTransport: "{{ traefik_conf_serversTransport }}"
+          entryPoints: "{{ traefik_conf_entryPoints }}"
+          providers: "{{ traefik_conf_providers }}"
+          api: "{{ traefik_conf_api }}"
+          metrics: "{{ traefik_conf_metrics }}"
+          ping: "{{ traefik_conf_ping }}"
+          log: "{{ traefik_conf_log }}"
+          accessLog: "{{ traefik_conf_accessLog }}"
+          tracing: "{{ traefik_conf_tracing }}"
+          hostResolver: "{{ traefik_conf_hostResolver }}"
+          certificatesResolvers: "{{ traefik_conf_certificatesResolvers }}"
+      }
 
 - debug:
     var: traefik_static_config
