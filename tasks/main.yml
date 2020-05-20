@@ -51,4 +51,4 @@
       }
 
 - debug:
-    msg: "{{ lookup('template', './templates/config.yml.j2', convert_data=yes) }}"
+    msg: "{{ lookup('template', './templates/config.yml.j2', convert_data="yes") }}"
