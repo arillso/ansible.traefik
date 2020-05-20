@@ -51,4 +51,4 @@
       }
 
 - debug:
-    var: traefik_static_config
+    msg: "{{ lookup('template', '.templates//config.yml.j2') }}"
