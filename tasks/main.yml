@@ -1,0 +1,53 @@
+---
+
+- name: config | generate config keys
+  set_fact:
+      traefik_conf_global: "{{ traefik_int_conf_global | combine(traefik_confkey_global) }}"
+      traefik_conf_serversTransport: "{{ traefik_confkey_serversTransport }}"
+      traefik_conf_providers: "{{ traefik_int_conf_providers | combine(traefik_confkey_providers) }}"
+      traefik_conf_api: "{{ traefik_confkey_api }}"
+      traefik_conf_metrics: "{{ traefik_confkey_metrics }}"
+      traefik_conf_ping: "{{ traefik_confkey_ping }}"
+      traefik_conf_log: "{{ traefik_int_conf_log | combine(traefik_confkey_log) }}"
+      traefik_conf_accessLog: "{{ traefik_confkey_accessLog }}"
+      traefik_conf_tracing: "{{ traefik_confkey_tracing }}"
+      traefik_conf_hostResolver: "{{ traefik_confkey_hostResolver }}"
+
+- name: config | generate neutral certresolver
+  set_fact:
+      traefik_conf_certificatesResolvers: "{{ traefik_confkey_certificatesResolvers }}"
+  when: not traefik_qs_https
+
+- name: config | generate le certresolver
+  set_fact:
+      traefik_conf_certificatesResolvers: "{{ traefik_int_conf_certificatesResolvers | combine(traefik_confkey_certificatesResolvers) }}"
+  when: traefik_qs_https
+
+- name: config | generate http entrypoint config
+  set_fact:
+      traefik_conf_entryPoints: "{{ traefik_int_conf_entryPoints_http | combine(traefik_confkey_entryPoints) }}"
+  when: not traefik_qs_https
+
+- name: config | generate https entrypoint config
+  set_fact:
+      traefik_conf_entryPoints: "{{ traefik_int_conf_entryPoints_https | combine(traefik_confkey_entryPoints) }}"
+  when: traefik_qs_https
+
+- name: config | generate static config
+  set_fact:
+      traefik_static_config: {}
+      traefik_static_config.global: "{{ traefik_conf_global }}"
+      traefik_static_config.serversTransport: "{{ traefik_conf_serversTransport }}"
+      traefik_static_config.entryPoints: "{{ traefik_conf_entryPoints }}"
+      traefik_static_config.providers: "{{ traefik_conf_providers }}"
+      traefik_static_config.api: "{{ traefik_conf_api }}"
+      traefik_static_config.metrics: "{{ traefik_conf_metrics }}"
+      traefik_static_config.ping: "{{ traefik_conf_ping }}"
+      traefik_static_config.log: "{{ traefik_conf_log }}"
+      traefik_static_config.accessLog: "{{ traefik_conf_accessLog }}"
+      traefik_static_config.tracing: "{{ traefik_conf_tracing }}"
+      traefik_static_config.hostResolver: "{{ traefik_conf_hostResolver }}"
+      traefik_static_config.certificatesResolvers: "{{ traefik_conf_certificatesResolvers }}"
+
+- debug:
+    var: traefik_static_config

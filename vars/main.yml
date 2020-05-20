@@ -1,0 +1,40 @@
+---
+
+traefik_int_conf_global:
+    sendAnonymousUsage: "{{ traefik_qs_send_anonymous_usage }}"
+
+
+traefik_int_conf_entryPoints_http:
+    web_http:
+        address: :80
+
+traefik_int_conf_entryPoints_https:
+    web_http:
+        address: :80
+        http:
+          redirections:
+            entryPoint:
+              to: web_https
+              scheme: https
+    web_https:
+        address: :443
+
+
+
+traefik_int_conf_providers:
+    docker: {}
+
+# traefik_int_conf_api:
+#     api: {}
+#
+# traefik_int_conf_ping:
+
+traefik_int_conf_log:
+    level: "{{ traefik_qs_log_level }}"
+
+traefik_int_conf_certificatesResolvers:
+    letsencrypt:
+        acme:
+            email: "{{ traefik_qs_https_le_mail }}"
+            tlsChallenge: {}
+            storage: /letsencrypt/acme.json
