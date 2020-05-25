@@ -10,15 +10,15 @@ traefik_qs_log_level: ERROR
 traefik_qs_api: false
 traefik_qs_ping: false
 
-traefik_confkey_global: {}
-traefik_confkey_serversTransport: {}
-traefik_confkey_entryPoints: {}
-traefik_confkey_providers: {}
-traefik_confkey_api: {}
-traefik_confkey_metrics: {}
-traefik_confkey_ping: {}
-traefik_confkey_log: {}
-traefik_confkey_accessLog: {}
-traefik_confkey_tracing: {}
-traefik_confkey_hostResolver: {}
-traefik_confkey_certificatesResolvers: {}
+# traefik_confkey_global: {}
+# traefik_confkey_serversTransport: {}
+# traefik_confkey_entryPoints: {}
+# traefik_confkey_providers: {}
+# traefik_confkey_api: {}
+# traefik_confkey_metrics: {}
+# traefik_confkey_ping: {}
+# traefik_confkey_log: {}
+# traefik_confkey_accessLog: {}
+# traefik_confkey_tracing: {}
+# traefik_confkey_hostResolver: {}
+# traefik_confkey_certificatesResolvers: {}

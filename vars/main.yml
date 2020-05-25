@@ -4,20 +4,21 @@ traefik_int_conf_global:
     sendAnonymousUsage: "{{ traefik_qs_send_anonymous_usage }}"
 
 
-traefik_int_conf_entryPoints_http:
+traefik_int_conf_entryPoints:
     web_http:
         address: :80
 
 traefik_int_conf_entryPoints_https:
+    web_https:
+        address: :443
+
+traefik_int_conf_entryPoints_https_redirect:
     web_http:
-        address: :80
         http:
           redirections:
             entryPoint:
               to: web_https
               scheme: https
-    web_https:
-        address: :443
 
 
 
@@ -27,7 +28,7 @@ traefik_int_conf_providers:
 # traefik_int_conf_api:
 #     api: {}
 #
-# traefik_int_conf_ping:
+# traefik_int_conf_ping: {}
 
 traefik_int_conf_log:
     level: "{{ traefik_qs_log_level }}"
@@ -38,3 +39,15 @@ traefik_int_conf_certificatesResolvers:
             email: "{{ traefik_qs_https_le_mail }}"
             tlsChallenge: {}
             storage: /letsencrypt/acme.json
+
+
+traefik_conf_global: "{{ traefik_int_conf_global | combine(traefik_confkey_global | default({})) }}"
+# traefik_conf_serversTransport: "{{ traefik_confkey_serversTransport | default(omit) }}"
+# traefik_conf_providers: "{{ traefik_int_conf_providers | combine(traefik_confkey_providers) }}"
+# traefik_conf_api: "{{ traefik_confkey_api | default(omit) }}"
+# traefik_conf_metrics: "{{ traefik_confkey_metrics | default(omit) }}"
+# traefik_conf_ping: "{{ traefik_confkey_ping | default(omit) }}"
+# traefik_conf_log: "{{ traefik_int_conf_log | combine(traefik_confkey_log) }}"
+# traefik_conf_accessLog: "{{ traefik_confkey_accessLog | default(omit) }}"
+# traefik_conf_tracing: "{{ traefik_confkey_tracing | default(omit) }}"
+# traefik_conf_hostResolver: "{{ traefik_confkey_hostResolver | default(omit) }}"

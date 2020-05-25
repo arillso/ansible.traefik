@@ -46,6 +46,7 @@ The quick-setup variables are prefixed with `traefik_qs_`.
 | `traefik_network`                 | `traefik_proxy`              | the name of the generated network                                |
 | `traefik_qs_send_anonymous_usage` | `false`                      | wether to send anonymous usage                                   |
 | `traefik_qs_https`                | `false`                      | wether to setup a https endpoint                                 |
+| `traefik_qs_https_redirect`       | `false`                      | wether to setup a redirection to https                           | 
 | `traefik_qs_https_le`             | `false`                      | wether to setup letsencrypt using tls (only if https is enabled) |
 | `traefik_qs_https_le_mail`        | undefined                    | the email to use for letsencrypt                                 |
 | `traefik_qs_log_level`            | `ERROR`                      | the loglevel to apply                                            |
@@ -63,23 +64,23 @@ The default names of the generated configs are:
 
 
 ### In-Depth Configuration
-As stated before, this role also allows you to configure traefik very in-depth by
+As stated before, this role also allows you to configure traefik in-depth by
 using the traefik yaml config. The following variables can be used:
 
-| Name                                    | Default | Description                                                                    |
-|:--------------------------------------- |:------- | ------------------------------------------------------------------------------ |
-| `traefik_confkey_global`                | `{}`    | [see Docs 📑](https://docs.traefik.io/reference/static-configuration/file/)    |
-| `traefik_confkey_serversTransport`      | `{}`    | [see Docs 📑](https://docs.traefik.io/reference/static-configuration/cli-ref/) |
-| `traefik_confkey_entryPoints`           | `{}`    | [see Docs 📑](https://docs.traefik.io/routing/entrypoints/#entrypoints)        |
-| `traefik_confkey_providers`             | `{}`    | [see Docs 📑](https://docs.traefik.io/routing/providers/docker/)               |
-| `traefik_confkey_api`                   | `{}`    | [see Docs 📑](https://docs.traefik.io/operations/api/)                         |
-| `traefik_confkey_metrics`               | `{}`    | [see Docs 📑](https://docs.traefik.io/observability/metrics/overview/)         |
-| `traefik_confkey_ping`                  | `{}`    | [see Docs 📑](https://docs.traefik.io/operations/ping/)                        |
-| `traefik_confkey_log`                   | `{}`    | [see Docs 📑](https://docs.traefik.io/observability/logs/)                     |
-| `traefik_confkey_accessLog`             | `{}`    | [see Docs 📑](https://docs.traefik.io/observability/access-logs/)              |
-| `traefik_confkey_tracing`               | `{}`    | [see Docs 📑](https://docs.traefik.io/observability/tracing/overview/)         |
-| `traefik_confkey_hostResolver`          | `{}`    | [see Docs 📑](https://docs.traefik.io/reference/static-configuration/file/)    |
-| `traefik_confkey_certificatesResolvers` | `{}`    | [see Docs 📑](https://docs.traefik.io/https/acme/#certificate-resolvers)       |
+| Name                                    | Default   | Description                                                                    |
+|:--------------------------------------- |:--------- | ------------------------------------------------------------------------------ |
+| `traefik_confkey_global`                | undefined | [see Docs 📑](https://docs.traefik.io/reference/static-configuration/file/)    |
+| `traefik_confkey_serversTransport`      | undefined | [see Docs 📑](https://docs.traefik.io/reference/static-configuration/cli-ref/) |
+| `traefik_confkey_entryPoints`           | undefined | [see Docs 📑](https://docs.traefik.io/routing/entrypoints/#entrypoints)        |
+| `traefik_confkey_providers`             | undefined | [see Docs 📑](https://docs.traefik.io/routing/providers/docker/)               |
+| `traefik_confkey_api`                   | undefined | [see Docs 📑](https://docs.traefik.io/operations/api/)                         |
+| `traefik_confkey_metrics`               | undefined | [see Docs 📑](https://docs.traefik.io/observability/metrics/overview/)         |
+| `traefik_confkey_ping`                  | undefined | [see Docs 📑](https://docs.traefik.io/operations/ping/)                        |
+| `traefik_confkey_log`                   | undefined | [see Docs 📑](https://docs.traefik.io/observability/logs/)                     |
+| `traefik_confkey_accessLog`             | undefined | [see Docs 📑](https://docs.traefik.io/observability/access-logs/)              |
+| `traefik_confkey_tracing`               | undefined | [see Docs 📑](https://docs.traefik.io/observability/tracing/overview/)         |
+| `traefik_confkey_hostResolver`          | undefined | [see Docs 📑](https://docs.traefik.io/reference/static-configuration/file/)    |
+| `traefik_confkey_certificatesResolvers` | undefined | [see Docs 📑](https://docs.traefik.io/https/acme/#certificate-resolvers)       |
 
 These keys are merged into the configuration **after** the quick-setup config using
 the [`combine()`](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#combining-hashes-dictionaries)
