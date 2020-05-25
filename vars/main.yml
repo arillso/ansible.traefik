@@ -44,7 +44,7 @@ traefik_int_conf_certificatesResolvers:
 traefik_conf_global: "{{ traefik_int_conf_global | combine(traefik_confkey_global | default({})) }}"
 traefik_conf_entryPoints: "{{ traefik_int_conf_entryPoints | combine(traefik_confkey_entryPoints | default({})) }}"
 # traefik_conf_serversTransport: "{{ traefik_confkey_serversTransport | default(omit) }}"
-# traefik_conf_providers: "{{ traefik_int_conf_providers | combine(traefik_confkey_providers) }}"
+traefik_conf_providers: "{{ traefik_int_conf_providers | combine(traefik_confkey_providers | default({})) }}"
 # traefik_conf_api: "{{ traefik_confkey_api | default(omit) }}"
 # traefik_conf_metrics: "{{ traefik_confkey_metrics | default(omit) }}"
 # traefik_conf_ping: "{{ traefik_confkey_ping | default(omit) }}"
