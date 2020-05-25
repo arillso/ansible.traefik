@@ -30,7 +30,7 @@
           log: "{{ traefik_conf_log }}"
           accessLog: "{{  traefik_confkey_accessLog | default(omit) }}"
           tracing: "{{ traefik_confkey_tracing | default(omit) }}"
-          hostResolver: "{{ traefik_confkey_hostResolver | default(omit }}"
+          hostResolver: "{{ traefik_confkey_hostResolver | default(omit) }}"
           certificatesResolvers: "{{ traefik_conf_certificatesResolvers }}"
 
 - debug:
