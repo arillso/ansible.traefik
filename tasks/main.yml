@@ -28,7 +28,7 @@
           serversTransport: "{{ traefik_confkey_serversTransport | default(omit) }}"
           entryPoints: "{{ traefik_conf_entryPoints }}"
           providers: "{{ traefik_conf_providers }}"
-          # api: "{{ traefik_conf_api }}"
+          api: "{{ traefik_confkey_api | default(omit) }}"
           # metrics: "{{ traefik_conf_metrics }}"
           # ping: "{{ traefik_conf_ping }}"
           # log: "{{ traefik_conf_log }}"
