@@ -18,7 +18,7 @@
 - name: config | generate https redirect config
   set_fact:
       traefik_int_conf_entryPoints: "{{ traefik_int_conf_entryPoints | combine(traefik_int_conf_entryPoints_https_redirect, recursive=True) }}"
-  when: traefik_qs_https_redirect
+  when: traefik_qs_https and traefik_qs_https_redirect
 
 
 - name: config | generate static config
