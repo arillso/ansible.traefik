@@ -48,7 +48,7 @@ traefik_conf_providers: "{{ traefik_int_conf_providers | combine(traefik_confkey
 # traefik_conf_api: "{{ traefik_confkey_api | default(omit) }}"
 # traefik_conf_metrics: "{{ traefik_confkey_metrics | default(omit) }}"
 # traefik_conf_ping: "{{ traefik_confkey_ping | default(omit) }}"
-# traefik_conf_log: "{{ traefik_int_conf_log | combine(traefik_confkey_log) }}"
+traefik_conf_log: "{{ traefik_int_conf_log | combine(traefik_confkey_log | default({})) }}"
 # traefik_conf_accessLog: "{{ traefik_confkey_accessLog | default(omit) }}"
 # traefik_conf_tracing: "{{ traefik_confkey_tracing | default(omit) }}"
 # traefik_conf_hostResolver: "{{ traefik_confkey_hostResolver | default(omit) }}"
