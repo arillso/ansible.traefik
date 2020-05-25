@@ -46,9 +46,9 @@ The quick-setup variables are prefixed with `traefik_qs_`.
 | `traefik_network`                 | `traefik_proxy`              | the name of the generated network                                |
 | `traefik_qs_send_anonymous_usage` | `false`                      | wether to send anonymous usage                                   |
 | `traefik_qs_https`                | `false`                      | wether to setup a https endpoint                                 |
-| `traefik_qs_https_redirect`       | `false`                      | wether to setup a redirection to https                           | 
+| `traefik_qs_https_redirect`       | `false`                      | wether to setup a redirection to https                           |
 | `traefik_qs_https_le`             | `false`                      | wether to setup letsencrypt using tls (only if https is enabled) |
-| `traefik_qs_https_le_mail`        | undefined                    | the email to use for letsencrypt                                 |
+| `traefik_qs_https_le_mail`        | undefined                    | the email to use for letsencrypt (**Required**)                  |
 | `traefik_qs_log_level`            | `ERROR`                      | the loglevel to apply                                            |
 <!-- | `traefik_qs_api`                  | `false`                      | wether to setup api access                                       |
 | `traefik_qs_ping`                 | `false`                      | wether to setup ping                                             | -->

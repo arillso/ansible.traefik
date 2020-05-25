@@ -1,37 +1,4 @@
 ---
 
-- name: config | generate https entrypoint config
-  set_fact:
-      traefik_int_conf_entryPoints: "{{ traefik_int_conf_entryPoints | combine(traefik_int_conf_entryPoints_https) }}"
-  when: traefik_qs_https
-
-- name: config | generate https redirect config
-  set_fact:
-      traefik_int_conf_entryPoints: "{{ traefik_int_conf_entryPoints | combine(traefik_int_conf_entryPoints_https_redirect, recursive=True) }}"
-  when: traefik_qs_https and traefik_qs_https_redirect
-
-
-- name: config | generate neutral certresolver
-  set_fact:
-      traefik_int_conf_certificatesResolvers: "{{ traefik_int_conf_certificatesResolvers | combine(traefik_int_conf_certificatesResolvers_le, recursive=True) }}"
-  when: traefik_qs_https and traefik_qs_https_le
-
-
-- name: config | generate static config
-  set_fact:
-      traefik_static_config:
-          global: "{{ traefik_conf_global }}"
-          serversTransport: "{{ traefik_confkey_serversTransport | default(omit) }}"
-          entryPoints: "{{ traefik_conf_entryPoints }}"
-          providers: "{{ traefik_conf_providers }}"
-          api: "{{ traefik_confkey_api | default(omit) }}"
-          metrics: "{{ traefik_confkey_metrics | default(omit) }}"
-          ping: "{{ traefik_confkey_ping | default(omit) }}"
-          log: "{{ traefik_conf_log }}"
-          accessLog: "{{  traefik_confkey_accessLog | default(omit) }}"
-          tracing: "{{ traefik_confkey_tracing | default(omit) }}"
-          hostResolver: "{{ traefik_confkey_hostResolver | default(omit) }}"
-          certificatesResolvers: "{{ traefik_conf_certificatesResolvers }}"
-
-- debug:
-    var: traefik_static_config
+- name: generate config
+  include_tasks: 01_config.yml

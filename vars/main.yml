@@ -1,8 +1,6 @@
 ---
-
 traefik_int_conf_global:
     sendAnonymousUsage: "{{ traefik_qs_send_anonymous_usage }}"
-
 
 traefik_int_conf_entryPoints:
     web_http:
@@ -20,19 +18,11 @@ traefik_int_conf_entryPoints_https_redirect:
               to: web_https
               scheme: https
 
-
-
 traefik_int_conf_providers:
     docker: {}
 
-# traefik_int_conf_api:
-#     api: {}
-#
-# traefik_int_conf_ping: {}
-
 traefik_int_conf_log:
     level: "{{ traefik_qs_log_level }}"
-
 
 traefik_int_conf_certificatesResolvers: {}
 traefik_int_conf_certificatesResolvers_le:
@@ -45,13 +35,6 @@ traefik_int_conf_certificatesResolvers_le:
 
 traefik_conf_global: "{{ traefik_int_conf_global | combine(traefik_confkey_global | default({})) }}"
 traefik_conf_entryPoints: "{{ traefik_int_conf_entryPoints | combine(traefik_confkey_entryPoints | default({})) }}"
-# traefik_conf_serversTransport: "{{ traefik_confkey_serversTransport | default(omit) }}"
 traefik_conf_providers: "{{ traefik_int_conf_providers | combine(traefik_confkey_providers | default({})) }}"
-# traefik_conf_api: "{{ traefik_confkey_api | default(omit) }}"
-# traefik_conf_metrics: "{{ traefik_confkey_metrics | default(omit) }}"
-# traefik_conf_ping: "{{ traefik_confkey_ping | default(omit) }}"
 traefik_conf_log: "{{ traefik_int_conf_log | combine(traefik_confkey_log | default({})) }}"
-# traefik_conf_accessLog: "{{ traefik_confkey_accessLog | default(omit) }}"
-# traefik_conf_tracing: "{{ traefik_confkey_tracing | default(omit) }}"
-# traefik_conf_hostResolver: "{{ traefik_confkey_hostResolver | default(omit) }}"
 traefik_conf_certificatesResolvers: "{{ traefik_int_conf_certificatesResolvers | combine(traefik_confkey_certificatesResolvers | default({})) }}"
