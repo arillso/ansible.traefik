@@ -1,4 +1,4 @@
 ---
 
 - name: generate config
-  include_tasks: 01_config.yml
+  include_tasks: 0_config.yml
