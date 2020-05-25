@@ -33,7 +33,9 @@ traefik_int_conf_providers:
 traefik_int_conf_log:
     level: "{{ traefik_qs_log_level }}"
 
-traefik_int_conf_certificatesResolvers:
+
+traefik_int_conf_certificatesResolvers: {}
+traefik_int_conf_certificatesResolvers_le:
     letsencrypt:
         acme:
             email: "{{ traefik_qs_https_le_mail }}"
@@ -52,3 +54,4 @@ traefik_conf_log: "{{ traefik_int_conf_log | combine(traefik_confkey_log | defau
 # traefik_conf_accessLog: "{{ traefik_confkey_accessLog | default(omit) }}"
 # traefik_conf_tracing: "{{ traefik_confkey_tracing | default(omit) }}"
 # traefik_conf_hostResolver: "{{ traefik_confkey_hostResolver | default(omit) }}"
+traefik_conf_cer: "{{ traefik_int_conf_cer | combine(traefik_confkey_certificatesResolvers | default({})) }}"
