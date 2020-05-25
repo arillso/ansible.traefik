@@ -32,7 +32,7 @@
           metrics: "{{ traefik_confkey_metrics | default(omit) }}"
           ping: "{{ traefik_confkey_ping | default(omit) }}"
           log: "{{ traefik_conf_log }}"
-          # accessLog: "{{ traefik_conf_accessLog }}"
+          accessLog: "{{  traefik_confkey_accessLog | default(omit) }}"
           # tracing: "{{ traefik_conf_tracing }}"
           # hostResolver: "{{ traefik_conf_hostResolver }}"
           # certificatesResolvers: "{{ traefik_conf_certificatesResolvers }}
