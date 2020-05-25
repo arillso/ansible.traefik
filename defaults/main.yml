@@ -5,6 +5,7 @@ traefik_hostname: "{{ inventory_hostname }}"
 traefik_network: traefik_proxy
 traefik_qs_send_anonymous_usage: false
 traefik_qs_https: false
+traefik_qs_https_redirect: false
 traefik_qs_https_le: false
 traefik_qs_log_level: ERROR
 traefik_qs_api: false

@@ -14,7 +14,7 @@
 - name: config | generate neutral certresolver
   set_fact:
       traefik_int_conf_certificatesResolvers: "{{ traefik_int_conf_certificatesResolvers | combine(traefik_int_conf_certificatesResolvers_le, recursive=True) }}"
-  when: traefik_qs_https_le
+  when: traefik_qs_https and traefik_qs_https_le
 
 
 - name: config | generate static config
