@@ -38,3 +38,11 @@ traefik_conf_entryPoints: "{{ traefik_int_conf_entryPoints | combine(traefik_con
 traefik_conf_providers: "{{ traefik_int_conf_providers | combine(traefik_confkey_providers | default({})) }}"
 traefik_conf_log: "{{ traefik_int_conf_log | combine(traefik_confkey_log | default({})) }}"
 traefik_conf_certificatesResolvers: "{{ traefik_int_conf_certificatesResolvers | combine(traefik_confkey_certificatesResolvers | default({})) }}"
+
+
+traefik_host_vol: /etc/traefik/
+traefik_volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - "{{ traefik_host_vol }}traefik.yml:/etc/traefik/traefik.yml"
+    - /var/run/docker.sock:/var/run/docker.sock
+    - traefik-data:/etc/traefik

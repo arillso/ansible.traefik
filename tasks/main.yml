@@ -2,3 +2,6 @@
 
 - name: generate config
   include_tasks: 0_config.yml
+
+- name: setup traefik
+  include_tasks: 1_setup.yml

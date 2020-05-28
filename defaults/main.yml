@@ -1,8 +1,11 @@
 ---
 # defaults file
+# Setup vars
 traefik_dir: /etc/traefik
 traefik_hostname: "{{ inventory_hostname }}"
 traefik_network: traefik_proxy
+
+# quicksetup vars
 traefik_qs_send_anonymous_usage: false
 traefik_qs_https: false
 traefik_qs_https_redirect: false
@@ -10,6 +13,19 @@ traefik_qs_https_le: false
 traefik_qs_log_level: ERROR
 traefik_qs_api: false
 traefik_qs_ping: false
+
+# service vars
+traefik_container_name: 'traefik'
+traefik_network_name: 'traefik_proxy'
+traefik_network_ipam_subnet: '172.16.1.0/24'
+traefik_network_ipam_gateway: '172.16.1.1'
+traefik_network_ipam_iprange: '172.16.1.0/24'
+traefik_image: 'traefik'
+traefik_add_volumes: []
+traefik_ports:
+  - '80:80'
+  - '443:443'
+traefik_labels: {}
 
 # traefik_confkey_global: {}
 # traefik_confkey_serversTransport: {}

@@ -32,3 +32,15 @@
           tracing: "{{ traefik_confkey_tracing | default(omit) }}"
           hostResolver: "{{ traefik_confkey_hostResolver | default(omit) }}"
           certificatesResolvers: "{{ traefik_conf_certificatesResolvers }}"
+
+- name: config | generate service description
+  set_fact:
+      traefik_service_definition:
+          name: "{{ traefik_container_name }}"
+          image: "{{ traefik_image }}"
+          restart_policy: unless-stopped
+          published_ports: "{{ traefik_ports }}"
+          volumes: "{{ traefik_volumes | combine(traefik_add_volumes) }}"
+          labels: "{{ traefik_labels }}"
+          networks:
+              - name: '{{ traefik_network_name }}'

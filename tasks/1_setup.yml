@@ -1,0 +1,35 @@
+---
+- name: setup | create traefik directory
+  become: true
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: docker
+    mode: 0550
+  with_items:
+    - "{{ traefik_host_vol }}"
+
+- name: setup | create traefik configuration
+  become: true
+  copy:
+    dest: "{{ traefik_host_vol }}traefik.yml"
+    owner: root
+    group: docker
+    mode: 0550
+    content: "{{ content | to_nice_yaml }}"
+  notify:
+    - restart traefik container
+
+- name: setup | create traefik network
+  become: true
+  docker_network:
+    name: '{{ traefik_network_name }}'
+    ipam_config:
+      - subnet: '{{ traefik_network_ipam_subnet }}'
+        gateway: '{{ traefik_network_ipam_gateway }}'
+        iprange: '{{ traefik_network_ipam_iprange }}'
+
+- name: setup | start traefik container
+  become: true
+  docker_container: "{{ traefik_service_definition }}"
