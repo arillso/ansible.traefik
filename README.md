@@ -3,7 +3,7 @@
 
 [![Build Status](https://img.shields.io/travis/arillso/ansible.traefik.svg?branch=master&style=popout-square)](https://travis-ci.org/arillso/ansible.traefik)
 [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-traefik-blue.svg?style=popout-square)](https://galaxy.ansible.com/arillso/traefik)
-<!-- [![Ansible Role](https://img.shields.io/ansible/role/d/0.svg?style=popout-square)](https://galaxy.ansible.com/arillso/traefik) -->
+[![Ansible Role](https://img.shields.io/ansible/role/d/0.svg?style=popout-square)](https://galaxy.ansible.com/arillso/traefik)
 
 ## Description
 [Traefik](https://docs.traefik.io/v2.0) is a reverse proxy written in Go.
