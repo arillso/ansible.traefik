@@ -43,3 +43,4 @@
           - "--configFile={{ traefik_host_vol }}traefik.yml"
       networks:
           - name: '{{ traefik_network_name }}'
+      networks_cli_compatible: yes
