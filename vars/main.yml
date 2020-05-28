@@ -57,6 +57,7 @@ traefik_conf_certificatesResolvers: "{{
 traefik_host_vol: /etc/traefik/
 traefik_volumes:
     - /etc/localtime:/etc/localtime:ro
+    - "/var/run/docker.sock:/var/run/docker.sock:ro"
     - "{{ traefik_host_vol }}traefik.yml:/etc/traefik/traefik.yml"
     - "{{ traefik_host_vol }}letsencrypt/:/letsencrypt/:rw"
     - /var/run/docker.sock:/var/run/docker.sock
