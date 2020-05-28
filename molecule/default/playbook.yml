@@ -6,7 +6,7 @@
   pre_tasks:
     - name: install docker-py
       package:
-        name: docker-py
+        name: docker
         state: present
     - name: add docker group
       group:
