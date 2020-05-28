@@ -6,6 +6,6 @@
   pre_tasks:
     - name: add docker group
       group:
-          name: docker
-          state: present
+        name: docker
+        state: present
   vars: {}
