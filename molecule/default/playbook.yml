@@ -4,6 +4,10 @@
   roles:
     - role: arillso.traefik
   pre_tasks:
+    - name: install docker
+      package:
+        name: docker
+        state: present
     - name: add docker group
       group:
         name: docker
