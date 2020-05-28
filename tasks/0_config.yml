@@ -40,7 +40,7 @@
           image: "{{ traefik_image }}"
           restart_policy: unless-stopped
           published_ports: "{{ traefik_ports }}"
-          volumes: "{{ traefik_volumes | combine(traefik_add_volumes) }}"
+          volumes: "{{ traefik_volumes + traefik_add_volumes }}"
           labels: "{{ traefik_labels }}"
           networks:
               - name: '{{ traefik_network_name }}'
