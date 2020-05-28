@@ -43,7 +43,6 @@ The quick-setup variables are prefixed with `traefik_qs_`.
 | `traefik_dir`                     | `/etc/traefik`               | where to store traefik data                                      |
 | `traefik_hostname`                | `"{{ inventory_hostname }}"` | the hostname of this instance                                    |
 | `traefik_network`                 | `traefik_proxy`              | the name of the generated network                                |
-| `traefik_network`                 | `traefik_proxy`              | the name of the generated network                                |
 | `traefik_qs_send_anonymous_usage` | `false`                      | wether to send anonymous usage                                   |
 | `traefik_qs_https`                | `false`                      | wether to setup a https endpoint                                 |
 | `traefik_qs_https_redirect`       | `false`                      | wether to setup a redirection to https                           |
