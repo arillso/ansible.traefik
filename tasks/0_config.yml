@@ -42,5 +42,7 @@
           published_ports: "{{ traefik_ports }}"
           volumes: "{{ traefik_volumes + traefik_add_volumes }}"
           labels: "{{ traefik_labels }}"
+          command:
+              - "--configFile={{ traefik_host_vol }}traefik.yml"
           networks:
               - name: '{{ traefik_network_name }}'
