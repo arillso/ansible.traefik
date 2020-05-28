@@ -13,10 +13,10 @@ traefik_int_conf_entryPoints_https:
 traefik_int_conf_entryPoints_https_redirect:
     web_http:
         http:
-          redirections:
-            entryPoint:
-              to: web_https
-              scheme: https
+            redirections:
+                entryPoint:
+                    to: web_https
+                    scheme: https
 
 traefik_int_conf_providers:
     docker: {}
@@ -33,11 +33,25 @@ traefik_int_conf_certificatesResolvers_le:
             storage: /letsencrypt/acme.json
 
 
-traefik_conf_global: "{{ traefik_int_conf_global | combine(traefik_confkey_global | default({})) }}"
-traefik_conf_entryPoints: "{{ traefik_int_conf_entryPoints | combine(traefik_confkey_entryPoints | default({})) }}"
-traefik_conf_providers: "{{ traefik_int_conf_providers | combine(traefik_confkey_providers | default({})) }}"
-traefik_conf_log: "{{ traefik_int_conf_log | combine(traefik_confkey_log | default({})) }}"
-traefik_conf_certificatesResolvers: "{{ traefik_int_conf_certificatesResolvers | combine(traefik_confkey_certificatesResolvers | default({})) }}"
+traefik_conf_global: "{{
+  traefik_int_conf_global | combine(traefik_confkey_global | default({}))
+}}"
+traefik_conf_entryPoints: "{{
+  traefik_int_conf_entryPoints
+  | combine(traefik_confkey_entryPoints
+  | default({}))
+}}"
+traefik_conf_providers: "{{
+  traefik_int_conf_providers | combine(traefik_confkey_providers | default({}))
+}}"
+traefik_conf_log: "{{
+  traefik_int_conf_log | combine(traefik_confkey_log | default({}))
+}}"
+traefik_conf_certificatesResolvers: "{{
+  traefik_int_conf_certificatesResolvers
+  | combine(traefik_confkey_certificatesResolvers
+  | default({}))
+}}"
 
 
 traefik_host_vol: /etc/traefik/
