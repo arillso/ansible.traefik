@@ -17,7 +17,7 @@
     owner: root
     group: docker
     mode: 0550
-    content: "{{ content | to_nice_yaml }}"
+    content: "{{ traefik_static_config | to_nice_yaml }}"
   notify:
     - restart traefik container
 
