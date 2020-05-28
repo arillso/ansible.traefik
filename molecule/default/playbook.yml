@@ -3,4 +3,9 @@
   hosts: all
   roles:
     - role: arillso.traefik
+  pre_tasks:
+    - name: add docker group
+      group:
+          name: docker
+          state: present
   vars: {}
