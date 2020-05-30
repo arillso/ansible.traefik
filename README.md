@@ -5,6 +5,21 @@
 [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-traefik-blue.svg?style=popout-square)](https://galaxy.ansible.com/arillso/traefik)
 [![Ansible Role](https://img.shields.io/ansible/role/d/48963.svg?style=popout-square)](https://galaxy.ansible.com/arillso/traefik)
 
+<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Description](#description)
+- [Installation](#installation)
+- [Requirements](#requirements)
+- [Role Variables](#role-variables)
+	- [In-Depth Configuration](#in-depth-configuration)
+- [Compatibility with  sbaerlocher/ansible.traefik](#compatibility-with-sbaerlocheransibletraefik)
+	- [Variables which need manual action](#variables-which-need-manual-action)
+		- [`traefik_configuration_file`](#traefikconfigurationfile)
+		- [`traefik_api`](#traefikapi)
+		- [`traefik_ping`](#traefikping)
+
+<!-- /TOC -->
+
 ## Description
 [Traefik](https://docs.traefik.io/v2.0) is a reverse proxy written in Go.
 It can be used in multiple situations with many providers (Kubernetes, Swarm,
@@ -121,9 +136,6 @@ for use in production):
 traefik_confkey_api:
   insecure: true
   dashboard: true # use this for enabling the dashboard
-
-# Dont forget to expose the traefik port on the host.
-# NOTE: this exposes the api publicly without authentication and is highly insecure
 traefik_ports:
   - '80:80'
   - '443:443'
