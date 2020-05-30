@@ -24,10 +24,10 @@
 
 - name: config | generate neutral certresolver
   set_fact:
-    traefik_conf_certificatesResolvers: "{{
-      traefik_conf_certificatesResolvers | default({})
+      traefik_conf_certificatesResolvers: "{{
+        traefik_conf_certificatesResolvers | default({})
         | combine(traefik_confkey_certificatesResolvers)
-    }}"
+      }}"
     when: traefik_confkey_certificatesResolvers is defined
 
 
