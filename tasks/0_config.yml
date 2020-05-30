@@ -28,7 +28,7 @@
         traefik_conf_certificatesResolvers | default({})
         | combine(traefik_confkey_certificatesResolvers)
       }}"
-    when: traefik_confkey_certificatesResolvers is defined
+  when: traefik_confkey_certificatesResolvers is defined
 
 
 - name: config | generate static config
