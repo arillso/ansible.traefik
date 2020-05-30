@@ -11,8 +11,11 @@ traefik_qs_https: false
 traefik_qs_https_redirect: false
 traefik_qs_https_le: false
 traefik_qs_log_level: ERROR
-traefik_qs_api: false
-traefik_qs_ping: false
+
+traefik_qs_send_anonymous_usage: "{{ traefik_sendanonymoususage | default(traefik_qs_send_anonymous_usage) }}"
+traefik_qs_https: "{{ traefik_https | default(traefik_qs_https) }}"
+traefik_qs_https_redirect: "{{ traefik_https_redirect | default(traefik_qs_https_redirect) }}"
+traefik_qs_log_level: "{{ traefik_log_level | default(traefik_qs_log_level) }}"
 
 # service vars
 traefik_container_name: 'traefik'
