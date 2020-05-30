@@ -148,5 +148,5 @@ traefik_confkey_ping:
 traefik_ports:
   - '80:80'
   - '443:443'
-  - '8080:8080'
+  - '8082:8082'
 ```
