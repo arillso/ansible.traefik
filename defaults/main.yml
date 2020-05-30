@@ -6,7 +6,10 @@ traefik_hostname: "{{ inventory_hostname }}"
 traefik_network: traefik_proxy
 
 # quicksetup vars
-traefik_qs_send_anonymous_usage: "{{ traefik_sendanonymoususage | default(false) }}"
+traefik_qs_send_anonymous_usage: "{{
+  traefik_sendanonymoususage
+  | default(false)
+}}"
 traefik_qs_https: "{{ traefik_https | default(false) }}"
 traefik_qs_https_redirect: "{{ traefik_https_redirect | default(false) }}"
 traefik_qs_https_le: false
@@ -17,9 +20,18 @@ traefik_qs_log_level: "{{ traefik_log_level | default('ERROR') }}"
 traefik_container_name: 'traefik'
 traefik_network_name: "{{ traefik_network }}"
 traefik_network_ipam: "{{ traefik_network_ipam | default({}) }}"
-traefik_network_ipam_subnet: "{{ traefik_network_ipam.subnet | default('172.16.1.0/24') }}"
-traefik_network_ipam_gateway: "{{ traefik_network_ipam.gateway | default('172.16.1.1') }}"
-traefik_network_ipam_iprange: "{{ traefik_network_ipam.iprange | default('172.16.1.0/24') }}"
+traefik_network_ipam_subnet: "{{
+  traefik_network_ipam.subnet
+  | default('172.16.1.0/24')
+}}"
+traefik_network_ipam_gateway: "{{
+  traefik_network_ipam.gateway
+  | default('172.16.1.1')
+}}"
+traefik_network_ipam_iprange: "{{
+  traefik_network_ipam.iprange
+  | default('172.16.1.0/24')
+}}"
 traefik_image: 'traefik'
 traefik_add_volumes: []
 traefik_ports:
