@@ -24,7 +24,7 @@ traefik_int_conf_providers:
 traefik_int_conf_log:
     level: "{{ traefik_qs_log_level }}"
 
-traefik_int_conf_certificatesResolvers: {}
+
 traefik_int_conf_certificatesResolvers_le:
     letsencrypt:
         acme:
@@ -47,11 +47,12 @@ traefik_conf_providers: "{{
 traefik_conf_log: "{{
   traefik_int_conf_log | combine(traefik_confkey_log | default({}))
 }}"
-traefik_conf_certificatesResolvers: "{{
-  traefik_int_conf_certificatesResolvers
-  | combine(traefik_confkey_certificatesResolvers
-  | default({}))
-}}"
+# traefik_conf_certificatesResolvers: "{{
+#   traefik_int_conf_certificatesResolvers
+#   | combine(traefik_confkey_certificatesResolvers
+#     | default({})
+#   )
+# }}"
 
 
 traefik_host_vol: /etc/traefik/

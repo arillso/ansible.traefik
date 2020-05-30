@@ -17,11 +17,18 @@
 
 - name: config | generate neutral certresolver
   set_fact:
-      traefik_int_conf_certificatesResolvers: "{{
-        traefik_int_conf_certificatesResolvers
-        | combine(traefik_int_conf_certificatesResolvers_le, recursive=True)
+      traefik_conf_certificatesResolvers: "{{
+        traefik_int_conf_certificatesResolvers_le
       }}"
   when: traefik_qs_https and traefik_qs_https_le
+
+  - name: config | generate neutral certresolver
+    set_fact:
+        traefik_conf_certificatesResolvers: "{{
+          traefik_conf_certificatesResolvers | default({})
+          | combine(traefik_confkey_certificatesResolvers)
+        }}"
+    when: traefik_confkey_certificatesResolvers is defined
 
 
 - name: config | generate static config
@@ -41,4 +48,4 @@
           accessLog: "{{  traefik_confkey_accessLog | default(omit) }}"
           tracing: "{{ traefik_confkey_tracing | default(omit) }}"
           hostResolver: "{{ traefik_confkey_hostResolver | default(omit) }}"
-          certificatesResolvers: "{{ traefik_conf_certificatesResolvers }}"
+          certificatesResolvers: "{{ traefik_conf_certificatesResolvers | default(omit) }}"
