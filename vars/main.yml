@@ -61,5 +61,4 @@ traefik_volumes:
     - "/var/run/docker.sock:/var/run/docker.sock:ro"
     - "{{ traefik_host_vol }}traefik.yml:/etc/traefik/traefik.yml"
     - "{{ traefik_host_vol }}letsencrypt/:/letsencrypt/:rw"
-    - /var/run/docker.sock:/var/run/docker.sock
     - traefik-data:/etc/traefik
