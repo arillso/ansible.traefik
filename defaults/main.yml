@@ -19,17 +19,17 @@ traefik_qs_log_level: "{{ traefik_log_level | default('ERROR') }}"
 # service vars
 traefik_container_name: 'traefik'
 traefik_network_name: "{{ traefik_network }}"
-traefik_network_ipam: "{{ traefik_network_ipam | default({}) }}"
+traefik_network_ipam_temp: "{{ traefik_network_ipam | default({}) }}"
 traefik_network_ipam_subnet: "{{
-  traefik_network_ipam.subnet
+  traefik_network_ipam_temp.subnet
   | default('172.16.1.0/24')
 }}"
 traefik_network_ipam_gateway: "{{
-  traefik_network_ipam.gateway
+  traefik_network_ipam_temp.gateway
   | default('172.16.1.1')
 }}"
 traefik_network_ipam_iprange: "{{
-  traefik_network_ipam.iprange
+  traefik_network_ipam_temp.iprange
   | default('172.16.1.0/24')
 }}"
 traefik_image: 'traefik'
