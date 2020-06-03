@@ -3,19 +3,19 @@ traefik_int_conf_global:
     sendAnonymousUsage: "{{ traefik_qs_send_anonymous_usage }}"
 
 traefik_int_conf_entryPoints:
-    web_http:
+    http:
         address: :80
 
 traefik_int_conf_entryPoints_https:
-    web_https:
+    https:
         address: :443
 
 traefik_int_conf_entryPoints_https_redirect:
-    web_http:
+    http:
         http:
             redirections:
                 entryPoint:
-                    to: web_https
+                    to: https
                     scheme: https
 
 traefik_int_conf_providers:
@@ -55,10 +55,9 @@ traefik_conf_log: "{{
 # }}"
 
 
-traefik_host_vol: /etc/traefik/
 traefik_volumes:
     - /etc/localtime:/etc/localtime:ro
     - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    - "{{ traefik_host_vol }}traefik.yml:/etc/traefik/traefik.yml"
-    - "{{ traefik_host_vol }}letsencrypt/:/letsencrypt/:rw"
+    - "{{ traefik_dir }}/traefik.yml:/etc/traefik/traefik.yml"
+    - "{{ traefik_dir }}/letsencrypt/:/letsencrypt/:rw"
     - traefik-data:/etc/traefik
