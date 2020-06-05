@@ -35,6 +35,12 @@ To suggest an enhancement, open an issue containing:
 * Clear description of the feature you are suggesting
 
 ### Contribute Code
+We welcome any contribution of code to this repository, from bugfixes to new
+features. In order to simplify code review and speed up the process of adding
+new features, please follow the steps below for every single fix / enhancement.
+Adding multiple features and fixes to one pull request will lead to more
+complicated code review and you risk your changes being declined because of
+things that have nothing to do with them.
 
 Follow these steps to contribute code:
 
