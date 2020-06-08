@@ -1,5 +1,5 @@
 ---
-- name: setup | create traefik directory
+- name: 'setup : create traefik directory'
   become: true
   file:
     path: '{{ item }}'
@@ -8,20 +8,20 @@
     group: docker
     mode: 0550
   with_items:
-    - "{{ traefik_host_vol }}"
+    - '{{ traefik_dir }}'
 
-- name: setup | create traefik configuration
+- name: 'setup : create traefik configuration'
   become: true
   copy:
-    dest: "{{ traefik_host_vol }}traefik.yml"
+    dest: '{{ traefik_dir }}/traefik.yml'
     owner: root
     group: docker
     mode: 0550
-    content: "{{ traefik_static_config | to_nice_yaml }}"
+    content: '{{ traefik_static_config | to_nice_yaml }}'
   notify:
     - restart traefik container
 
-- name: setup | create traefik network
+- name: 'setup : create traefik network'
   become: true
   docker_network:
     name: '{{ traefik_network_name }}'
@@ -30,17 +30,17 @@
         gateway: '{{ traefik_network_ipam_gateway }}'
         iprange: '{{ traefik_network_ipam_iprange }}'
 
-- name: setup | start traefik container
+- name: 'setup : start traefik container'
   become: true
   docker_container:
-    name: "{{ traefik_container_name }}"
-    image: "{{ traefik_image }}"
+    name: '{{ traefik_container_name }}'
+    image: '{{ traefik_image }}'
     restart_policy: unless-stopped
-    published_ports: "{{ traefik_ports }}"
-    volumes: "{{ traefik_volumes + traefik_add_volumes }}"
-    labels: "{{ traefik_labels }}"
+    published_ports: '{{ traefik_ports }}'
+    volumes: '{{ traefik_volumes + traefik_add_volumes }}'
+    labels: '{{ traefik_labels }}'
     command:
-      - "--configFile={{ traefik_host_vol }}traefik.yml"
+      - '--configFile=/etc/traefik/traefik.yml'
     networks:
       - name: '{{ traefik_network_name }}'
     networks_cli_compatible: true

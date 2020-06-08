@@ -1,6 +1,6 @@
 ---
 
-- name: config | generate https entrypoint config
+- name: "config : generate https entrypoint config"
   set_fact:
       traefik_int_conf_entryPoints: "{{
         traefik_int_conf_entryPoints |
@@ -8,21 +8,21 @@
       }}"
   when: traefik_qs_https
 
-- name: config | generate https redirect config
+- name: "config : generate https redirect config"
   set_fact:
       traefik_int_conf_entryPoints: "{{ traefik_int_conf_entryPoints |
         combine(traefik_int_conf_entryPoints_https_redirect, recursive=True) }}"
   when: traefik_qs_https and traefik_qs_https_redirect
 
 
-- name: config | generate neutral certresolver
+- name: "config : generate neutral certresolver"
   set_fact:
       traefik_conf_certificatesResolvers: "{{
         traefik_int_conf_certificatesResolvers_le
       }}"
   when: traefik_qs_https and traefik_qs_https_le
 
-- name: config | generate neutral certresolver
+- name: "config : generate neutral certresolver"
   set_fact:
       traefik_conf_certificatesResolvers: "{{
         traefik_conf_certificatesResolvers | default({})
@@ -31,7 +31,7 @@
   when: traefik_confkey_certificatesResolvers is defined
 
 
-- name: config | generate static config
+- name: "config : generate static config"
   set_fact:
       traefik_static_config:
           global: "{{ traefik_conf_global }}"
