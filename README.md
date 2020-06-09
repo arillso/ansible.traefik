@@ -77,6 +77,7 @@ The quick-setup variables are prefixed with `traefik_qs_`.
 | `traefik_add_volumes`             | `[]`                         | additional volumes to mount                                      |
 | `traefik_ports`                   | `['80:80', '443:443']`       | the ports shared                                                 |
 | `traefik_labels`                  | `{}`                         | labels to set on the traefik container.                          |
+| `traefik_container_environment`   | `[]`                         | environment variables to set on the traefik container.            |
 
 The default names of the generated configs are:
 

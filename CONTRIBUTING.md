@@ -6,40 +6,42 @@
 
 Examples of behavior that contributes to creating a positive environment include:
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
+- Using welcoming and inclusive language
+- Being respectful of differing viewpoints and experiences
+- Gracefully accepting constructive criticism
+- Focusing on what is best for the community
+- Showing empathy towards other community members
 
 Examples of unacceptable behavior by participants include:
 
-* The use of sexualized language or imagery and unwelcome sexual attention or advances
-* Trolling, insulting/derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or electronic address, without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a professional setting
+- The use of sexualized language or imagery and unwelcome sexual attention or advances
+- Trolling, insulting/derogatory comments, and personal or political attacks
+- Public or private harassment
+- Publishing others' private information, such as a physical or electronic address, without explicit permission
+- Other conduct which could reasonably be considered inappropriate in a professional setting
 
 ## How to Contribute
 
 ### Reporting Bugs
+
 To report bugs, please open an issue containing:
 
-* Clear description of the problem
-* Messages, log entries etc.
-* Example configuration to reproduce the issue
+- Clear description of the problem
+- Messages, log entries etc.
+- Example configuration to reproduce the issue
 
 ### Suggesting Enhancements
+
 To suggest an enhancement, open an issue containing:
 
-* Clear description of the feature you are suggesting
+- Clear description of the feature you are suggesting
 
 ### Contribute Code
 
 Follow these steps to contribute code:
 
 1. Open an issue describing what you want to change (follow one of the previous
-    chapters).
+   chapters).
 2. Create a fork and implement your changes
 3. Open a pull request to `develop`
 

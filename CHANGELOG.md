@@ -11,6 +11,10 @@ and [human-readable changelog](https://keepachangelog.com/en/1.0.0/).
 - Syntax adapted to standard
 - Conversion of the traefik ocnfig dir variable from `traefik_host_vol` to `traefik_dir`
 
+### Added
+
+- Added the possibility to define container environment variable
+
 ## [1.0.2] - 2020-05-31
 
 ### Fixed
