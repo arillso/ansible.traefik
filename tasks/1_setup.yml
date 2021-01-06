@@ -10,6 +10,17 @@
   with_items:
     - '{{ traefik_dir }}'
 
+- name: 'setup : create directory for dynamic config'
+  become: true
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: docker
+    mode: 0550
+  with_items:
+    - '{{ traefik_dir }}/dynamic_conf'
+
 - name: 'setup : create traefik configuration'
   become: true
   copy:
@@ -20,6 +31,42 @@
     content: '{{ traefik_static_config | to_nice_yaml }}'
   notify:
     - restart traefik container
+
+- name: 'setup : dynamic file config'
+  become: true
+  copy:
+    dest: '{{ traefik_dir }}/traefik_dynamic_file_config.yml'
+    owner: root
+    group: docker
+    mode: 0550
+    content: '{{ traefik_dynamic_file_config | to_nice_yaml }}'
+  notify:
+    - restart traefik container
+  when: traefik_dynamic_file_config is defined
+  
+- name: 'setup: tls options'
+  become: true
+  copy:
+    dest: '{{ traefik_dir }}/dynamic_conf/qs_traefik_tls_options.yml'
+    owner: root
+    group: docker
+    mode: 0550
+    content: '{{ traefik_int_tls_options | to_nice_yaml }}'
+  notify:
+    - restart traefik container
+  when: traefik_qs_tls_options
+
+- name: 'setup: middelware'
+  become: true
+  copy:
+    dest: '{{ traefik_dir }}/dynamic_conf/qs_traefik_middlewares.yml'
+    owner: root
+    group: docker
+    mode: 0550
+    content: '{{ traefik_int_middlewares | to_nice_yaml }}'
+  notify:
+    - restart traefik container
+  when: traefik_qs_middlewares
 
 - name: 'setup : create traefik network'
   become: true
@@ -44,3 +91,4 @@
     networks:
       - name: '{{ traefik_network_name }}'
     networks_cli_compatible: true
+

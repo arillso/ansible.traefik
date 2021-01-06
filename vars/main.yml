@@ -19,11 +19,15 @@ traefik_int_conf_entryPoints_https_redirect:
                     scheme: https
 
 traefik_int_conf_providers:
-    docker: {}
+    docker: 
+        exposedByDefault: "{{ traefik_qs_exposedbydefault }}"
+        endpoint: "unix:///var/run/docker.sock"
+        network: "{{ traefik_network }}"
+    file:
+        directory: "/etc/traefik/dynamic_conf"
 
 traefik_int_conf_log:
     level: "{{ traefik_qs_log_level }}"
-
 
 traefik_int_conf_certificatesResolvers_le:
     letsencrypt:
@@ -32,6 +36,51 @@ traefik_int_conf_certificatesResolvers_le:
             tlsChallenge: {}
             storage: /letsencrypt/acme.json
 
+traefik_int_tls_options:    
+    tls:
+        options:
+            modern:
+                minVersion: VersionTLS13
+            intermediate:
+                minVersion: VersionTLS12
+                cipherSuites: 
+                    - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+                    - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+                    - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+                    - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+                    - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+                    - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+            old:
+                minVersion: TLSv1
+                cipherSuites: 
+                    - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+                    - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+                    - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+                    - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+                    - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+                    - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+                    - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+                    - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+                    - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+                    - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+                    - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+                    - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+                    - TLS_RSA_WITH_AES_128_GCM_SHA256
+                    - TLS_RSA_WITH_AES_256_GCM_SHA384
+                    - TLS_RSA_WITH_AES_128_CBC_SHA256
+                    - TLS_RSA_WITH_AES_128_CBC_SHA
+                    - TLS_RSA_WITH_AES_256_CBC_SHA
+                    - TLS_RSA_WITH_3DES_EDE_CBC_SHA
+
+traefik_int_middlewares:
+    http:
+        middlewares:
+            hsts-header:
+                headers:
+                    STSSeconds: 63072000
+            xssfilter-header:
+                headers:
+                    browserXssFilter: true
 
 traefik_conf_global: "{{
   traefik_int_conf_global | combine(traefik_confkey_global | default({}))
@@ -54,10 +103,10 @@ traefik_conf_log: "{{
 #   )
 # }}"
 
-
 traefik_volumes:
     - /etc/localtime:/etc/localtime:ro
     - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    - "{{ traefik_dir }}/dynamic_conf/:/etc/traefik/dynamic_conf/:ro"
     - "{{ traefik_dir }}/traefik.yml:/etc/traefik/traefik.yml"
     - "{{ traefik_dir }}/letsencrypt/:/letsencrypt/:rw"
     - traefik-data:/etc/traefik

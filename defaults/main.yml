@@ -14,7 +14,12 @@ traefik_qs_https: "{{ traefik_https | default(false) }}"
 traefik_qs_https_redirect: "{{ traefik_https_redirect | default(false) }}"
 traefik_qs_https_le: false
 traefik_qs_log_level: "{{ traefik_log_level | default('ERROR') }}"
+traefik_qs_exposedbydefault: true
 
+#Setup tls options according to https://ssl-config.mozilla.org/#server=traefik&version=2.3.6
+traefik_qs_tls_options: false
+#hsts-header,xssfilter-header
+traefik_qs_middlewares: false
 
 # service vars
 traefik_container_name: 'traefik'
@@ -37,7 +42,7 @@ traefik_add_volumes: []
 traefik_ports:
   - '80:80'
   - '443:443'
-traefik_labels: {}
+traefik_labels: {} 
 
 # traefik_confkey_global: {}
 # traefik_confkey_serversTransport: {}
