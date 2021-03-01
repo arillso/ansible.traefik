@@ -72,10 +72,7 @@
   become: true
   docker_network:
     name: '{{ traefik_network_name }}'
-    ipam_config:
-      - subnet: '{{ traefik_network_ipam_subnet }}'
-        gateway: '{{ traefik_network_ipam_gateway }}'
-        iprange: '{{ traefik_network_ipam_iprange }}'
+    ipam_config: '{{ traefik_network_ipam_config }}'
 
 - name: 'setup : start traefik container'
   become: true
