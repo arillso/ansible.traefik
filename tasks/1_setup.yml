@@ -72,6 +72,7 @@
   become: true
   docker_network:
     name: '{{ traefik_network_name }}'
+    enable_ipv6: '{{ traefik_network_enable_ipv6 }}'
     ipam_config: '{{ traefik_network_ipam_config }}'
 
 - name: 'setup : start traefik container'

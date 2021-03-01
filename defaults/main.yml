@@ -24,6 +24,7 @@ traefik_qs_middlewares: false
 # service vars
 traefik_container_name: 'traefik'
 traefik_network_name: "{{ traefik_network }}"
+traefik_network_enable_ipv6: no
 traefik_network_ipam_config:
  - subnet: '172.116.1.0/24'
    gateway: '172.116.1.1'
