@@ -13,7 +13,7 @@ env:
     - MOLECULE_DISTRO: debian10
 
 install:
-  - pip install molecule docker
+  - pip install molecule docker molecule-docker
   - git clone https://github.com/arillso/tests molecule/default/lint
 
 before_script:
