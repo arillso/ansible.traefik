@@ -110,6 +110,8 @@ using the traefik yaml config. The following variables can be used:
 | `traefik_confkey_tracing`               | undefined | [see Docs 📑](https://docs.traefik.io/observability/tracing/overview/)         |
 | `traefik_confkey_hostResolver`          | undefined | [see Docs 📑](https://docs.traefik.io/reference/static-configuration/file/)    |
 | `traefik_confkey_certificatesResolvers` | undefined | [see Docs 📑](https://docs.traefik.io/https/acme/#certificate-resolvers)       |
+| `traefik_confkey_middlewares` | undefined | [see Docs 📑](https://doc.traefik.io/traefik/middlewares/overview/)       |
+| `traefik_confkey_tls` | undefined | [see Docs 📑](https://doc.traefik.io/traefik/https/tls/)       |
 
 These keys are merged into the configuration **after** the quick-setup config using
 the [`combine()`](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#combining-hashes-dictionaries)

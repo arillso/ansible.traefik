@@ -18,11 +18,13 @@ traefik_int_conf_entryPoints_https_redirect:
                     to: https
                     scheme: https
 
-traefik_int_conf_providers:
+traefik_int_conf_provider_docker:
     docker: 
         exposedByDefault: "{{ traefik_qs_exposedbydefault }}"
         endpoint: "unix:///var/run/docker.sock"
         network: "{{ traefik_network }}"
+
+traefik_int_conf_provider_file:
     file:
         directory: "/etc/traefik/dynamic_conf"
 
@@ -36,7 +38,9 @@ traefik_int_conf_certificatesResolvers_le:
             tlsChallenge: {}
             storage: /letsencrypt/acme.json
 
-traefik_int_tls_options:    
+# Based on Mozilla SSL Config Generator 
+# https://ssl-config.mozilla.org/#server=traefik
+traefik_int_conf_tls_options:    
     tls:
         options:
             modern:
@@ -72,7 +76,7 @@ traefik_int_tls_options:
                     - TLS_RSA_WITH_AES_256_CBC_SHA
                     - TLS_RSA_WITH_3DES_EDE_CBC_SHA
 
-traefik_int_middlewares:
+traefik_int_conf_http_middlewares:
     http:
         middlewares:
             hsts-header:
@@ -90,18 +94,9 @@ traefik_conf_entryPoints: "{{
   | combine(traefik_confkey_entryPoints
   | default({}))
 }}"
-traefik_conf_providers: "{{
-  traefik_int_conf_providers | combine(traefik_confkey_providers | default({}))
-}}"
 traefik_conf_log: "{{
   traefik_int_conf_log | combine(traefik_confkey_log | default({}))
 }}"
-# traefik_conf_certificatesResolvers: "{{
-#   traefik_int_conf_certificatesResolvers
-#   | combine(traefik_confkey_certificatesResolvers
-#     | default({})
-#   )
-# }}"
 
 traefik_volumes:
     - /etc/localtime:/etc/localtime:ro

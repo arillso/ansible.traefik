@@ -30,6 +30,47 @@
       }}"
   when: traefik_confkey_certificatesResolvers is defined
 
+#setup providers
+- name: "config: setup docker provider"
+  set_fact: 
+      traefik_conf_providers: "{{ traefik_int_conf_provider_docker }}"
+
+- name: "config: Setup dynamic file provider"
+  set_fact:
+      traefik_conf_providers: "{{ traefik_conf_providers | combine(traefik_int_conf_provider_file | default({})) }}"
+
+- name: "config: Setup dynamic file provider using traefik_confkey_providers"
+  set_fact:
+      traefik_conf_providers: "{{ traefik_conf_providers | combine(traefik_confkey_providers | default({})) }}"
+  when: traefik_confkey_providers is defined
+
+# setup basic tls hardening
+- name: "config: setup middlewares using traefik_qs_tls_options"
+  set_fact: 
+      traefik_conf_tls: "{{ traefik_int_conf_tls_options }}"
+  when: traefik_qs_tls_options
+
+- name: "config: setup middlewares using traefik_confkey_tls"
+  set_fact: 
+      traefik_conf_tls: "{{
+        traefik_conf_tls | default({})
+        | combine(traefik_confkey_tls)
+        }}"
+  when: traefik_confkey_tls is defined
+
+# setup basic middleware for hardening
+- name: "config: setup middlewares using traefik_qs_middlewares"
+  set_fact: 
+      traefik_conf_middlewares: "{{ traefik_int_conf_http_middlewares }}"
+  when: traefik_qs_middlewares
+
+- name: "config: setup middlewares using traefik_confkey_middlewares"
+  set_fact: 
+      traefik_conf_middlewares: "{{
+        traefik_conf_middlewares | default({})
+        | combine(traefik_confkey_middlewares)
+      }}"
+  when: traefik_confkey_middlewares is defined
 
 - name: "config : generate static config"
   set_fact:

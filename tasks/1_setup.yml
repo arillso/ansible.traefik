@@ -32,18 +32,6 @@
   notify:
     - restart traefik container
 
-- name: 'setup : dynamic file config'
-  become: true
-  copy:
-    dest: '{{ traefik_dir }}/traefik_dynamic_file_config.yml'
-    owner: root
-    group: docker
-    mode: 0550
-    content: '{{ traefik_dynamic_file_config | to_nice_yaml }}'
-  notify:
-    - restart traefik container
-  when: traefik_dynamic_file_config is defined
-  
 - name: 'setup: tls options'
   become: true
   copy:
@@ -51,7 +39,7 @@
     owner: root
     group: docker
     mode: 0550
-    content: '{{ traefik_int_tls_options | to_nice_yaml }}'
+    content: '{{ traefik_conf_tls | to_nice_yaml }}'
   notify:
     - restart traefik container
   when: traefik_qs_tls_options
@@ -63,7 +51,7 @@
     owner: root
     group: docker
     mode: 0550
-    content: '{{ traefik_int_middlewares | to_nice_yaml }}'
+    content: '{{ traefik_conf_middlewares | to_nice_yaml }}'
   notify:
     - restart traefik container
   when: traefik_qs_middlewares
