@@ -1,47 +1,35 @@
 ---
-- name: 'setup : create traefik directory'
+- name: 'setup : create kibana directory'
   become: true
   file:
     path: '{{ item }}'
     state: directory
-    owner: root
-    group: docker
-    mode: 0550
+    owner: "{{ kibana_user }}"
+    group: "{{ kibana_group }}"
+    mode: 0770
   with_items:
-    - '{{ traefik_dir }}'
+    - '{{ kibana_dir }}'
 
-- name: 'setup : create traefik configuration'
-  become: true
-  copy:
-    dest: '{{ traefik_dir }}/traefik.yml'
-    owner: root
-    group: docker
-    mode: 0550
-    content: '{{ traefik_static_config | to_nice_yaml }}'
+- name: 'setup : create kibana configuration'
+  template:
+    src: "kibana.yml.j2"
+    dest: "{{ kibana_dir }}/kibana.yml"
+    owner: "{{ kibana_user }}"
+    group: "{{ kibana_group }}"
+    mode: 770
   notify:
-    - restart traefik container
+    - restart kibana container
 
-- name: 'setup : create traefik network'
-  become: true
-  docker_network:
-    name: '{{ traefik_network_name }}'
-    ipam_config:
-      - subnet: '{{ traefik_network_ipam_subnet }}'
-        gateway: '{{ traefik_network_ipam_gateway }}'
-        iprange: '{{ traefik_network_ipam_iprange }}'
-
-- name: 'setup : start traefik container'
+- name: 'setup : start kibana container'
   become: true
   docker_container:
-    name: '{{ traefik_container_name }}'
-    image: '{{ traefik_image }}'
+    name: '{{ kibana_container_name }}'
+    image: '{{ kibana_image }}'
     restart_policy: unless-stopped
-    published_ports: '{{ traefik_ports }}'
-    volumes: '{{ traefik_volumes + traefik_add_volumes }}'
-    labels: '{{ traefik_labels }}'
-    env: '{{ traefik_env }}'
-    command:
-      - '--configFile=/etc/traefik/traefik.yml'
+    published_ports: '{{ kibana_ports }}'
+    volumes: '{{ kibana_volumes + kibana_add_volumes }}'
+    labels: '{{ kibana_labels }}'
+    env: '{{ kibana_env }}'
+    log_options: '{{ kibana_log_options }}'
     networks:
-      - name: '{{ traefik_network_name }}'
-    networks_cli_compatible: true
+      - name: '{{ kibana_network_name }}'

@@ -1,5 +1,5 @@
 ---
-- name: restart traefik container
+- name: restart kibana container
   docker_container:
-    name: "{{ traefik_container_name }}"
+    name: "{{ kibana_container_name }}"
     restart: true

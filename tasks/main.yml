@@ -1,7 +1,3 @@
 ---
-
-- name: generate config
-  include_tasks: 0_config.yml
-
-- name: setup traefik
+- name: setup kibana
   include_tasks: 1_setup.yml
