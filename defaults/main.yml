@@ -1,35 +1,54 @@
 ---
 # defaults file
 # Setup vars
-kibana_dir: /etc/elastic
-kibana_hostname: 'kibana'
-kibana_network: 'kibana'
-kibana_version: '7.12.0'
+traefik_dir: /etc/traefik
+traefik_hostname: "{{ inventory_hostname }}"
+traefik_network: traefik_proxy
+
+# quicksetup vars
+traefik_qs_send_anonymous_usage: "{{
+  traefik_sendanonymoususage
+  | default(false)
+}}"
+traefik_qs_https: "{{ traefik_https | default(false) }}"
+traefik_qs_https_redirect: "{{ traefik_https_redirect | default(false) }}"
+traefik_qs_https_le: false
+traefik_qs_log_level: "{{ traefik_log_level | default('ERROR') }}"
+
 
 # service vars
-kibana_container_name: 'kibana'
-kibana_network_name: "{{ kibana_network }}"
-kibana_image: 'docker.elastic.co/kibana/kibana:{{ kibana_version }}'
-kibana_add_volumes: []
-kibana_ports: []
-kibana_labels: {}
-kibana_env: {}
-kibana_log_options: 
-  max-size: "100m"
-  max-file: "3"
+traefik_container_name: 'traefik'
+traefik_network_name: "{{ traefik_network }}"
+traefik_network_ipam_temp: "{{ traefik_network_ipam | default({}) }}"
+traefik_network_ipam_subnet: "{{
+  traefik_network_ipam_temp.subnet
+  | default('172.16.1.0/24')
+}}"
+traefik_network_ipam_gateway: "{{
+  traefik_network_ipam_temp.gateway
+  | default('172.16.1.1')
+}}"
+traefik_network_ipam_iprange: "{{
+  traefik_network_ipam_temp.iprange
+  | default('172.16.1.0/24')
+}}"
+traefik_image: 'traefik'
+traefik_add_volumes: []
+traefik_ports:
+  - '80:80'
+  - '443:443'
+traefik_labels: {}
+traefik_env:
 
-kibana_index: '.kibana'
-kibana_server_name: 'kibana'
-kibana_server_host: '0.0.0.0'
-kibana_server_port: 5601
-kibana_xpack_encryptionkey: 
-
-kibana_username:
-kibana_password:
-kibana_server_basepath:
-kibana_server_baseurl:
-
-kibana_elasticsearch_hosts: '"http://127.0.0.1:9200"'
-
-kibana_user: '1000'
-kibana_group: '0'
+# traefik_confkey_global: {}
+# traefik_confkey_serversTransport: {}
+# traefik_confkey_entryPoints: {}
+# traefik_confkey_providers: {}
+# traefik_confkey_api: {}
+# traefik_confkey_metrics: {}
+# traefik_confkey_ping: {}
+# traefik_confkey_log: {}
+# traefik_confkey_accessLog: {}
+# traefik_confkey_tracing: {}
+# traefik_confkey_hostResolver: {}
+# traefik_confkey_certificatesResolvers: {}
