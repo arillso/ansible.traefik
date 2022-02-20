@@ -1,5 +1,29 @@
 ---
 
+- name: Warn if old option 'traefik_network_ipam' is used
+  fail:
+    msg: "Using 'traefik_network_ipam' is deprecated use traefik_network_ipam_config instead"
+  when: 
+    - traefik_network_ipam
+
+- name: Warn if old option 'traefik_network_ipam_temp.subnet' is used
+  fail:
+    msg: "Using 'traefik_network_ipam_temp.subnet' is deprecated use traefik_network_ipam_config instead"
+  when: 
+    - traefik_network_ipam_temp.subnet
+
+- name: Warn if old option 'traefik_network_ipam_temp.gateway' is used
+  fail:
+    msg: "Using 'traefik_network_ipam_temp.gateway' is deprecated use traefik_network_ipam_config instead"
+  when: 
+    - traefik_network_ipam_temp.gateway
+
+- name: Warn if old option 'traefik_network_ipam_temp.iprange' is used
+  fail:
+    msg: "Using 'traefik_network_ipam_temp.iprange' is deprecated use traefik_network_ipam_config instead"
+  when: 
+    - traefik_network_ipam_temp.iprange
+
 - name: "config : generate https entrypoint config"
   set_fact:
       traefik_int_conf_entryPoints: "{{

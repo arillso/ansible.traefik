@@ -18,13 +18,13 @@ traefik_int_conf_entryPoints_https_redirect:
                     to: https
                     scheme: https
 
-traefik_int_conf_providers_docker:
+traefik_int_conf_provider_docker:
     docker: 
         exposedByDefault: "{{ traefik_qs_exposedbydefault }}"
         endpoint: "unix:///var/run/docker.sock"
         network: "{{ traefik_network }}"
 
-traefik_int_conf_providers_dynamic_configuration:
+traefik_int_conf_provider_dynamic_configuration:
     file:
         directory: "/etc/traefik/dynamic_conf"
 
@@ -87,20 +87,28 @@ traefik_int_conf_http_middlewares:
                     browserXssFilter: true
 
 traefik_conf_global: "{{
-  traefik_int_conf_global | combine(traefik_confkey_global | default({}))
+    traefik_int_conf_global | combine(traefik_confkey_global | default({}))
 }}"
 traefik_conf_entryPoints: "{{
-  traefik_int_conf_entryPoints
-  | combine(traefik_confkey_entryPoints
-  | default({}))
+    traefik_int_conf_entryPoints
+    | combine(traefik_confkey_entryPoints
+    | default({}))
 }}"
 
 traefik_conf_providers: "{{
-  traefik_int_conf_providers_docker | combine(traefik_int_conf_providers_dynamic_configuration) | combine(traefik_confkey_providers | default({}))
+    traefik_int_conf_provider_docker | combine(traefik_int_conf_provider_dynamic_configuration) | combine(traefik_confkey_providers | default({}))
+}}"
+
+traefik_conf_middlewares: "{{
+    traefik_int_conf_http_middlewares | combine(traefik_confkey_middlewares | default({}))
+}}"
+
+traefik_conf_tls: "{{
+    traefik_int_conf_tls_options | combine(traefik_confkey_tls | default({}))
 }}"
 
 traefik_conf_log: "{{
-  traefik_int_conf_log | combine(traefik_confkey_log | default({}))
+    traefik_int_conf_log | combine(traefik_confkey_log | default({}))
 }}"
 
 traefik_volumes:
