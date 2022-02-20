@@ -37,15 +37,15 @@
   fail:
     msg: "'traefik_qs_middlewares' is used but 'traefik_use_dynamic_file_config' is not set to true."
   when: 
-    - traefik_use_dynamic_file_config
-    - traefik_qs_middlewares
+    - not traefik_use_dynamic_file_config | bool
+    - traefik_qs_middlewares | bool
 
 - name: Check if traefik_use_dynamic_file_config is set true if traefik_qs_tls_options is used 
   fail:
     msg: "'traefik_qs_tls_options' is used but 'traefik_use_dynamic_file_config' is not set to true."
   when: 
-    - traefik_use_dynamic_file_config
-    - traefik_qs_tls_options
+    - not traefik_use_dynamic_file_config | bool
+    - traefik_qs_tls_options | bool
 
 - name: 'setup: tls options'
   become: true
@@ -58,8 +58,8 @@
   notify:
     - restart traefik container
   when: 
-    - traefik_use_dynamic_file_config
-    - traefik_qs_tls_options
+    - not traefik_use_dynamic_file_config | bool
+    - traefik_qs_tls_options | bool
 
 - name: 'setup: middelware'
   become: true
@@ -72,8 +72,8 @@
   notify:
     - restart traefik container
   when: 
-    - traefik_use_dynamic_file_config
-    - traefik_qs_middlewares
+    - not traefik_use_dynamic_file_config | bool
+    - traefik_qs_middlewares | bool
 
 - name: 'setup : create traefik network'
   become: true
