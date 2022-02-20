@@ -75,7 +75,7 @@ The quick-setup variables are prefixed with `traefik_qs_`.
 | `traefik_qs_middlewares`            | `false`                      | Setup default middleware config for hsts-header, xssfilter-header |
 | `traefik_container_name`          | `'traefik'`                  | the container name                                               |
 | `traefik_network_name`            | `'traefik_proxy'`            | the network name                                                 |
-| `traefik_network_ipam`            | `subnet: '172.116.1.0/24'<br>gateway: '172.116.1.1'<br>iprange: '172.116.1.0/24'            | Network configuration                                                           |
+| `traefik_network_ipam_config` | - subnet: '172.116.1.0/24'<br>gateway: '172.116.1.1'<br>iprange: '172.116.1.0/24' | Network configuration |
 | `traefik_network_enable_ipv6`    | `'no'`            | Set to 'yes' to enable ipv6                                                  |
 | `traefik_image`                   | `'traefik'`                  | the image used                                                   |
 | `traefik_add_volumes`             | `[]`                         | additional volumes to mount                                      |
