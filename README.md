@@ -75,9 +75,8 @@ The quick-setup variables are prefixed with `traefik_qs_`.
 | `traefik_qs_middlewares`            | `false`                      | Setup default middleware config for hsts-header, xssfilter-header |
 | `traefik_container_name`          | `'traefik'`                  | the container name                                               |
 | `traefik_network_name`            | `'traefik_proxy'`            | the network name                                                 |
-| `traefik_network_ipam_subnet`     | `'172.16.1.0/24'`            | subnet                                                           |
-| `traefik_network_ipam_gateway`    | `'172.16.1.1'`               | gateway                                                          |
-| `traefik_network_ipam_iprange`    | `'172.16.1.0/24'`            | iprange                                                          |
+| `traefik_network_ipam`            | `subnet: '172.116.1.0/24'<br>gateway: '172.116.1.1'<br>iprange: '172.116.1.0/24'            | Network configuration                                                           |
+| `traefik_network_enable_ipv6`    | `'no'`            | Set to 'yes' to enable ipv6                                                  |
 | `traefik_image`                   | `'traefik'`                  | the image used                                                   |
 | `traefik_add_volumes`             | `[]`                         | additional volumes to mount                                      |
 | `traefik_ports`                   | `['80:80', '443:443']`       | the ports shared                                                 |
@@ -113,6 +112,8 @@ using the traefik yaml config. The following variables can be used:
 | `traefik_confkey_tracing`               | undefined | [see Docs 📑](https://docs.traefik.io/observability/tracing/overview/)         |
 | `traefik_confkey_hostResolver`          | undefined | [see Docs 📑](https://docs.traefik.io/reference/static-configuration/file/)    |
 | `traefik_confkey_certificatesResolvers` | undefined | [see Docs 📑](https://docs.traefik.io/https/acme/#certificate-resolvers)       |
+| `traefik_confkey_middlewares` | undefined | [see Docs 📑](https://doc.traefik.io/traefik/middlewares/overview/)       |
+| `traefik_confkey_tls` | undefined | [see Docs 📑](https://doc.traefik.io/traefik/https/tls/)       |
 
 These keys are merged into the configuration **after** the quick-setup config using
 the [`combine()`](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#combining-hashes-dictionaries)

@@ -30,19 +30,12 @@ traefik_qs_middlewares: false
 # service vars
 traefik_container_name: 'traefik'
 traefik_network_name: "{{ traefik_network }}"
-traefik_network_ipam_temp: "{{ traefik_network_ipam | default({}) }}"
-traefik_network_ipam_subnet: "{{
-  traefik_network_ipam_temp.subnet
-  | default('172.16.1.0/24')
-}}"
-traefik_network_ipam_gateway: "{{
-  traefik_network_ipam_temp.gateway
-  | default('172.16.1.1')
-}}"
-traefik_network_ipam_iprange: "{{
-  traefik_network_ipam_temp.iprange
-  | default('172.16.1.0/24')
-}}"
+traefik_network_enable_ipv6: no
+traefik_network_ipam_config:
+ - subnet: '172.116.1.0/24'
+   gateway: '172.116.1.1'
+   iprange: '172.116.1.0/24'
+
 traefik_image: 'traefik'
 traefik_add_volumes: []
 traefik_ports:
@@ -62,3 +55,5 @@ traefik_labels: {}
 # traefik_confkey_tracing: {}
 # traefik_confkey_hostResolver: {}
 # traefik_confkey_certificatesResolvers: {}
+# traefik_confkey_middlewares: {}
+# traefik_confkey_tls: {}

@@ -54,7 +54,7 @@
     owner: root
     group: docker
     mode: 0550
-    content: '{{ traefik_int_tls_options | to_nice_yaml }}'
+    content: '{{ traefik_conf_tls | to_nice_yaml }}'
   notify:
     - restart traefik container
   when: 
@@ -68,7 +68,7 @@
     owner: root
     group: docker
     mode: 0550
-    content: '{{ traefik_int_middlewares | to_nice_yaml }}'
+    content: '{{ traefik_conf_middlewares | to_nice_yaml }}'
   notify:
     - restart traefik container
   when: 
@@ -79,10 +79,8 @@
   become: true
   docker_network:
     name: '{{ traefik_network_name }}'
-    ipam_config:
-      - subnet: '{{ traefik_network_ipam_subnet }}'
-        gateway: '{{ traefik_network_ipam_gateway }}'
-        iprange: '{{ traefik_network_ipam_iprange }}'
+    enable_ipv6: '{{ traefik_network_enable_ipv6 }}'
+    ipam_config: '{{ traefik_network_ipam_config }}'
 
 - name: 'setup : start traefik container'
   become: true
