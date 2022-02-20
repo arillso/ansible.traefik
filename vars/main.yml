@@ -18,11 +18,13 @@ traefik_int_conf_entryPoints_https_redirect:
                     to: https
                     scheme: https
 
-traefik_int_conf_providers:
+traefik_int_conf_providers_docker:
     docker: 
         exposedByDefault: "{{ traefik_qs_exposedbydefault }}"
         endpoint: "unix:///var/run/docker.sock"
         network: "{{ traefik_network }}"
+
+traefik_int_conf_providers_dynamic_configuration:
     file:
         directory: "/etc/traefik/dynamic_conf"
 
@@ -90,9 +92,11 @@ traefik_conf_entryPoints: "{{
   | combine(traefik_confkey_entryPoints
   | default({}))
 }}"
+
 traefik_conf_providers: "{{
-  traefik_int_conf_providers | combine(traefik_confkey_providers | default({}))
+  traefik_int_conf_providers_docker | combine(traefik_int_conf_providers_dynamic_configuration) | combine(traefik_confkey_providers | default({}))
 }}"
+
 traefik_conf_log: "{{
   traefik_int_conf_log | combine(traefik_confkey_log | default({}))
 }}"
@@ -106,7 +110,7 @@ traefik_conf_log: "{{
 traefik_volumes:
     - /etc/localtime:/etc/localtime:ro
     - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    - "{{ traefik_dir }}/dynamic_conf/:/etc/traefik/dynamic_conf/:ro"
+    - "{{ traefik_dynamic_file_config_dir }}/:/etc/traefik/dynamic_conf/:ro"
     - "{{ traefik_dir }}/traefik.yml:/etc/traefik/traefik.yml"
     - "{{ traefik_dir }}/letsencrypt/:/letsencrypt/:rw"
     - traefik-data:/etc/traefik

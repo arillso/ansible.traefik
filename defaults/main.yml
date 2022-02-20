@@ -16,9 +16,15 @@ traefik_qs_https_le: false
 traefik_qs_log_level: "{{ traefik_log_level | default('ERROR') }}"
 traefik_qs_exposedbydefault: true
 
+traefik_use_dynamic_file_config: false
+traefik_dynamic_file_config_dir: "{{ traefik_dir }}/dynamic_conf"
+
 #Setup tls options according to https://ssl-config.mozilla.org/#server=traefik&version=2.3.6
+#traefik_use_dynamic_file_config has to be true to use this
 traefik_qs_tls_options: false
+
 #hsts-header,xssfilter-header
+#traefik_use_dynamic_file_config has to be true to use this
 traefik_qs_middlewares: false
 
 # service vars

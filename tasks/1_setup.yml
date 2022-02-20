@@ -19,7 +19,8 @@
     group: docker
     mode: 0550
   with_items:
-    - '{{ traefik_dir }}/dynamic_conf'
+    - '{{ traefik_dynamic_file_config_dir }}'
+  when: traefik_use_dynamic_file_config
 
 - name: 'setup : create traefik configuration'
   become: true
@@ -31,19 +32,21 @@
     content: '{{ traefik_static_config | to_nice_yaml }}'
   notify:
     - restart traefik container
-
-- name: 'setup : dynamic file config'
-  become: true
-  copy:
-    dest: '{{ traefik_dir }}/traefik_dynamic_file_config.yml'
-    owner: root
-    group: docker
-    mode: 0550
-    content: '{{ traefik_dynamic_file_config | to_nice_yaml }}'
-  notify:
-    - restart traefik container
-  when: traefik_dynamic_file_config is defined
   
+- name: Check if traefik_use_dynamic_file_config is set true if traefik_qs_middlewares is used 
+  fail:
+    msg: "'traefik_qs_middlewares' is used but 'traefik_use_dynamic_file_config' is not set to true."
+  when: 
+    - traefik_use_dynamic_file_config
+    - traefik_qs_middlewares
+
+- name: Check if traefik_use_dynamic_file_config is set true if traefik_qs_tls_options is used 
+  fail:
+    msg: "'traefik_qs_tls_options' is used but 'traefik_use_dynamic_file_config' is not set to true."
+  when: 
+    - traefik_use_dynamic_file_config
+    - traefik_qs_tls_options
+
 - name: 'setup: tls options'
   become: true
   copy:
@@ -54,7 +57,9 @@
     content: '{{ traefik_int_tls_options | to_nice_yaml }}'
   notify:
     - restart traefik container
-  when: traefik_qs_tls_options
+  when: 
+    - traefik_use_dynamic_file_config
+    - traefik_qs_tls_options
 
 - name: 'setup: middelware'
   become: true
@@ -66,7 +71,9 @@
     content: '{{ traefik_int_middlewares | to_nice_yaml }}'
   notify:
     - restart traefik container
-  when: traefik_qs_middlewares
+  when: 
+    - traefik_use_dynamic_file_config
+    - traefik_qs_middlewares
 
 - name: 'setup : create traefik network'
   become: true

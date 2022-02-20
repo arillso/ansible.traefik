@@ -30,6 +30,17 @@
       }}"
   when: traefik_confkey_certificatesResolvers is defined
 
+- name: "config: check if dynamic_configuration has to be disabled"
+  set_fact:
+      traefik_int_conf_providers_dynamic_configuration: "{{ default({})     
+      }}"
+  when: traefik_use_dynamic_file_config
+
+- name: "config: generate traefik_conf_providers"
+  set_fact:
+      traefik_conf_providers: "{{
+        traefik_int_conf_providers_docker | combine(traefik_int_conf_providers_dynamic_configuration) | combine(traefik_confkey_providers | default({}))
+      }}"
 
 - name: "config : generate static config"
   set_fact:
