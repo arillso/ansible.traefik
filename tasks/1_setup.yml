@@ -58,7 +58,7 @@
   notify:
     - restart traefik container
   when: 
-    - not traefik_use_dynamic_file_config | bool
+    - traefik_use_dynamic_file_config | bool
     - traefik_qs_tls_options | bool
 
 - name: 'setup: middelware'
@@ -72,8 +72,16 @@
   notify:
     - restart traefik container
   when: 
-    - not traefik_use_dynamic_file_config | bool
+    - traefik_use_dynamic_file_config | bool
     - traefik_qs_middlewares | bool
+
+- name: 'setup: custom ssl certificates'
+  template:
+    src: https_custom_ssl.j2
+    dest: '{{ traefik_dir }}/dynamic_conf/https_custom_ssl.yml'
+  when: 
+    - traefik_use_dynamic_file_config | bool
+    - traefik_qs_https_custom_ssl | bool
 
 - name: 'setup : create traefik network'
   become: true

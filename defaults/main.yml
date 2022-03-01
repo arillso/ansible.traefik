@@ -16,6 +16,9 @@ traefik_qs_https_le: false
 traefik_qs_log_level: "{{ traefik_log_level | default('ERROR') }}"
 traefik_qs_exposedbydefault: true
 
+traefik_qs_https_custom_ssl: false
+traefik_qs_https_custom_ssl_files: []
+
 traefik_use_dynamic_file_config: false
 traefik_dynamic_file_config_dir: "{{ traefik_dir }}/dynamic_conf"
 
