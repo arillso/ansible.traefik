@@ -1,0 +1,38 @@
+---
+  - name: Playbook to setup traefik
+    hosts: 
+      - localhost
+    become: true
+    tasks:
+      - name: Remove already existing traefik container
+        community.general.docker_container:
+          name: traefik
+          state: absent
+        tags:
+          - setup-all
+          - setup-traefik
+      - include_role:
+          name: traefik
+        vars:
+          traefik_dir: /srv/docker/traefik
+          traefik_hostname: traefik.example.com'
+          traefik_qs_https: true
+          traefik_qs_log_level: INFO
+          traefik_qs_https_redirect: true
+          traefik_use_dynamic_file_config: true
+          traefik_qs_tls_options: true
+          traefik_qs_middlewares: true
+          traefik_qs_exposedbydefault: false
+          traefik_labels: 
+            com.centurylinklabs.watchtower.enable: 'true'
+          traefik_confkey_certificatesResolvers:
+            letsencrypt:
+              acme: 
+                httpChallenge:
+                  entryPoint: "http"
+                email: '{{ vault_private_email }}'
+                storage: /letsencrypt/acme.json 
+                caServer: "https://acme-v02.api.letsencrypt.org/directory"
+        tags:
+          - setup-all
+          - setup-traefik

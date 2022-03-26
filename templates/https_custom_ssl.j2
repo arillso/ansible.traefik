@@ -1,0 +1,8 @@
+{% if traefik_qs_https_custom_ssl %}
+tls:
+  certificates:
+{% for item in traefik_qs_https_custom_ssl_files %}
+    - certFile: {{ item.certFile }}
+      keyFile:  {{ item.keyFile }}
+{% endfor %}
+{% endif %}

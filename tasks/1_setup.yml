@@ -10,6 +10,18 @@
   with_items:
     - '{{ traefik_dir }}'
 
+- name: 'setup : create directory for dynamic config'
+  become: true
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: docker
+    mode: 0550
+  with_items:
+    - '{{ traefik_dynamic_file_config_dir }}'
+  when: traefik_use_dynamic_file_config
+
 - name: 'setup : create traefik configuration'
   become: true
   copy:
@@ -20,15 +32,63 @@
     content: '{{ traefik_static_config | to_nice_yaml }}'
   notify:
     - restart traefik container
+  
+- name: Check if traefik_use_dynamic_file_config is set true if traefik_qs_middlewares is used 
+  fail:
+    msg: "'traefik_qs_middlewares' is used but 'traefik_use_dynamic_file_config' is not set to true."
+  when: 
+    - not traefik_use_dynamic_file_config | bool
+    - traefik_qs_middlewares | bool
+
+- name: Check if traefik_use_dynamic_file_config is set true if traefik_qs_tls_options is used 
+  fail:
+    msg: "'traefik_qs_tls_options' is used but 'traefik_use_dynamic_file_config' is not set to true."
+  when: 
+    - not traefik_use_dynamic_file_config | bool
+    - traefik_qs_tls_options | bool
+
+- name: 'setup: tls options'
+  become: true
+  copy:
+    dest: '{{ traefik_dir }}/dynamic_conf/qs_traefik_tls_options.yml'
+    owner: root
+    group: docker
+    mode: 0550
+    content: '{{ traefik_conf_tls | to_nice_yaml }}'
+  notify:
+    - restart traefik container
+  when: 
+    - traefik_use_dynamic_file_config | bool
+    - traefik_qs_tls_options | bool
+
+- name: 'setup: middelware'
+  become: true
+  copy:
+    dest: '{{ traefik_dir }}/dynamic_conf/qs_traefik_middlewares.yml'
+    owner: root
+    group: docker
+    mode: 0550
+    content: '{{ traefik_conf_middlewares | to_nice_yaml }}'
+  notify:
+    - restart traefik container
+  when: 
+    - traefik_use_dynamic_file_config | bool
+    - traefik_qs_middlewares | bool
+
+- name: 'setup: custom ssl certificates'
+  template:
+    src: https_custom_ssl.j2
+    dest: '{{ traefik_dir }}/dynamic_conf/https_custom_ssl.yml'
+  when: 
+    - traefik_use_dynamic_file_config | bool
+    - traefik_qs_https_custom_ssl | bool
 
 - name: 'setup : create traefik network'
   become: true
   docker_network:
     name: '{{ traefik_network_name }}'
-    ipam_config:
-      - subnet: '{{ traefik_network_ipam_subnet }}'
-        gateway: '{{ traefik_network_ipam_gateway }}'
-        iprange: '{{ traefik_network_ipam_iprange }}'
+    enable_ipv6: '{{ traefik_network_enable_ipv6 }}'
+    ipam_config: '{{ traefik_network_ipam_config }}'
 
 - name: 'setup : start traefik container'
   become: true
@@ -44,3 +104,4 @@
     networks:
       - name: '{{ traefik_network_name }}'
     networks_cli_compatible: true
+

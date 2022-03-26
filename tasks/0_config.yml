@@ -1,5 +1,29 @@
 ---
 
+- name: Warn if old option 'traefik_network_ipam' is used
+  fail:
+    msg: "Using 'traefik_network_ipam' is deprecated use traefik_network_ipam_config instead"
+  when: 
+    - traefik_network_ipam is defined
+
+- name: Warn if old option 'traefik_network_ipam_temp.subnet' is used
+  fail:
+    msg: "Using 'traefik_network_ipam_temp.subnet' is deprecated use traefik_network_ipam_config instead"
+  when: 
+    - traefik_network_ipam_temp.subnet is defined
+
+- name: Warn if old option 'traefik_network_ipam_temp.gateway' is used
+  fail:
+    msg: "Using 'traefik_network_ipam_temp.gateway' is deprecated use traefik_network_ipam_config instead"
+  when: 
+    - traefik_network_ipam_temp.gateway is defined
+
+- name: Warn if old option 'traefik_network_ipam_temp.iprange' is used
+  fail:
+    msg: "Using 'traefik_network_ipam_temp.iprange' is deprecated use traefik_network_ipam_config instead"
+  when: 
+    - traefik_network_ipam_temp.iprange is defined
+
 - name: "config : generate https entrypoint config"
   set_fact:
       traefik_int_conf_entryPoints: "{{
@@ -30,6 +54,10 @@
       }}"
   when: traefik_confkey_certificatesResolvers is defined
 
+- name: "config: check if dynamic_configuration has to be disabled"
+  set_fact:
+      traefik_int_conf_providers_dynamic_configuration: ""
+  when: traefik_use_dynamic_file_config | bool
 
 - name: "config : generate static config"
   set_fact:

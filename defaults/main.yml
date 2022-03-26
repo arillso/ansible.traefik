@@ -14,30 +14,37 @@ traefik_qs_https: "{{ traefik_https | default(false) }}"
 traefik_qs_https_redirect: "{{ traefik_https_redirect | default(false) }}"
 traefik_qs_https_le: false
 traefik_qs_log_level: "{{ traefik_log_level | default('ERROR') }}"
+traefik_qs_exposedbydefault: true
 
+traefik_qs_https_custom_ssl: false
+traefik_qs_https_custom_ssl_files: []
+
+traefik_use_dynamic_file_config: false
+traefik_dynamic_file_config_dir: "{{ traefik_dir }}/dynamic_conf"
+
+#Setup tls options according to https://ssl-config.mozilla.org/#server=traefik&version=2.3.6
+#traefik_use_dynamic_file_config has to be true to use this
+traefik_qs_tls_options: false
+
+#hsts-header,xssfilter-header
+#traefik_use_dynamic_file_config has to be true to use this
+traefik_qs_middlewares: false
 
 # service vars
 traefik_container_name: 'traefik'
 traefik_network_name: "{{ traefik_network }}"
-traefik_network_ipam_temp: "{{ traefik_network_ipam | default({}) }}"
-traefik_network_ipam_subnet: "{{
-  traefik_network_ipam_temp.subnet
-  | default('172.16.1.0/24')
-}}"
-traefik_network_ipam_gateway: "{{
-  traefik_network_ipam_temp.gateway
-  | default('172.16.1.1')
-}}"
-traefik_network_ipam_iprange: "{{
-  traefik_network_ipam_temp.iprange
-  | default('172.16.1.0/24')
-}}"
+traefik_network_enable_ipv6: no
+traefik_network_ipam_config:
+ - subnet: '172.116.1.0/24'
+   gateway: '172.116.1.1'
+   iprange: '172.116.1.0/24'
+
 traefik_image: 'traefik'
 traefik_add_volumes: []
 traefik_ports:
   - '80:80'
   - '443:443'
-traefik_labels: {}
+traefik_labels: {} 
 
 # traefik_confkey_global: {}
 # traefik_confkey_serversTransport: {}
@@ -51,3 +58,5 @@ traefik_labels: {}
 # traefik_confkey_tracing: {}
 # traefik_confkey_hostResolver: {}
 # traefik_confkey_certificatesResolvers: {}
+# traefik_confkey_middlewares: {}
+# traefik_confkey_tls: {}
